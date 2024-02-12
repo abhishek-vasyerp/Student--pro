@@ -30,13 +30,8 @@ public class StudentController {
 	}
 
 	@GetMapping("{id}")
-	public ResponseEntity<?> getStudentById(@PathVariable("id") long studentId) {
-		try {
-			return ResponseEntity.ok(studentService.getStudentById(studentId));
-		} catch (Exception e) {
-			ApiResponse apiResponse = new ApiResponse(404, e.getMessage());
-			return ResponseEntity.ok(apiResponse);
-		}
+	public ResponseEntity<?> getStudentById(@PathVariable("id") long studentId) throws Exception {
+		return ResponseEntity.ok(studentService.getStudentById(studentId));
 	}
 
 	@PostMapping("")
@@ -45,35 +40,19 @@ public class StudentController {
 	}
 
 	@PutMapping("{studentId}")
-	public ResponseEntity<?> updateStudent(@PathVariable long studentId, @RequestBody StudentDto studentDto) {
-		try {
-			return ResponseEntity.ok(studentService.updateStudent(studentId, studentDto));
-		} catch (Exception e) {
-			ApiResponse apiResponse = new ApiResponse(404, e.getMessage());
-			return ResponseEntity.ok(apiResponse);
-		}
+	public ResponseEntity<?> updateStudent(@PathVariable long studentId, @RequestBody StudentDto studentDto) throws Exception {
+		return ResponseEntity.ok(studentService.updateStudent(studentId, studentDto));
 	}
 
 	@GetMapping("{studentId}/{projectId}")
-	public ResponseEntity<?> getStudentById(@PathVariable long studentId, @PathVariable long projectId) {
-		try {
-			return ResponseEntity.ok(studentService.assignProject(studentId, projectId));
-		} catch (Exception e) {
-			ApiResponse apiResponse = new ApiResponse(404, e.getMessage());
-			return ResponseEntity.ok(apiResponse);
-		}
+	public ResponseEntity<?> getStudentById(@PathVariable long studentId, @PathVariable long projectId) throws Exception {
+		return ResponseEntity.ok(studentService.assignProject(studentId, projectId));
 	}
 
 	@DeleteMapping("{id}")
-	public ResponseEntity<ApiResponse> deleteStudent(@PathVariable("id") long studentId) {
-		try {
-			studentService.deleteStudent(studentId);
-			ApiResponse apiResponse = new ApiResponse(200, "Deleted");
-			return ResponseEntity.ok(apiResponse);
-		} catch (Exception e) {
-			ApiResponse apiResponse = new ApiResponse(404, e.getMessage());
-			return ResponseEntity.ok(apiResponse);
-		}
+	public ResponseEntity<ApiResponse> deleteStudent(@PathVariable("id") long studentId) throws Exception {
+		studentService.deleteStudent(studentId);
+		ApiResponse apiResponse = new ApiResponse(200,"Success", "Deleted");
+		return ResponseEntity.ok(apiResponse);
 	}
-
 }

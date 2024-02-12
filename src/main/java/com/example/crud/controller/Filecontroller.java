@@ -12,18 +12,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.crud.dto.ApiResponse;
 import com.example.crud.service.FileServi;
 
 @RestController
-@RequestMapping("/files")
+@RequestMapping("/files/")
 public class Filecontroller {
 	@Autowired
 	private FileServi fileService;
 	
 	@PostMapping("/upload")
-	public ResponseEntity<String> uploadFile(@RequestParam("file")MultipartFile file)throws IOException{
+	public ApiResponse uploadFile(@RequestParam("file")MultipartFile file)throws IOException{
 		String response = fileService.uploadFile(file);
-		return ResponseEntity.ok(response);
+		return new ApiResponse(200, "ok", response);
 		
 	}
 	@GetMapping("/download/{filename}")

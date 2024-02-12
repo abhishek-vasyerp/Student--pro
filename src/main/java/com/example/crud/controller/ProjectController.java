@@ -30,14 +30,11 @@ public class ProjectController {
 	}
 
 	@GetMapping("{id}")
-	public ResponseEntity<?> getProjectById(@PathVariable("id") long projectId) {
-		try {
+	public ResponseEntity<?> getProjectById(@PathVariable("id") long projectId) throws Exception {
+		
 			return ResponseEntity.ok(projectService.getProjectById(projectId));
-		} catch (Exception e) {
-			ApiResponse apiResponse = new ApiResponse(404, e.getMessage());
-			return ResponseEntity.status(404).body(apiResponse);
+		
 		}
-	}
 
 	@PostMapping("")
 	public ResponseEntity<ProjectDto> saveProject(@RequestBody ProjectDto projectDto) {
@@ -46,24 +43,20 @@ public class ProjectController {
 
 	@PutMapping("{id}")
 	public ResponseEntity<?> updateProject(@PathVariable("id") long projectId,
-			@RequestBody ProjectDto projectDto) {
-		try {
+			@RequestBody ProjectDto projectDto) throws Exception {
+	
 			return ResponseEntity.ok(projectService.updateProject(projectId, projectDto));
-		} catch (Exception e) {
-			ApiResponse apiResponse = new ApiResponse(404, e.getMessage());
-			return ResponseEntity.status(404).body(apiResponse);
+	
 		}
-	}
+	
 
 	@DeleteMapping("{id}")
-	public ResponseEntity<ApiResponse> deleteProject(@PathVariable("id") long projectId) {
-		try {
+	public ResponseEntity<ApiResponse> deleteProject(@PathVariable("id") long projectId) throws Exception  {
 			projectService.deleteProject(projectId);
-			ApiResponse apiResponse = new ApiResponse(200, "Deleted");
+			ApiResponse apiResponse = new ApiResponse(200,"Success" ,"Deleted");
 			return ResponseEntity.status(200).body(apiResponse);
-		} catch (Exception e) {
-			ApiResponse apiResponse = new ApiResponse(400, e.getMessage());
-			return ResponseEntity.status(200).body(apiResponse);
+		
 		}
+		
 	}
-}
+

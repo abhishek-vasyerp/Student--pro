@@ -22,8 +22,8 @@ public class FileServImpl implements FileServi {
 	private static final String UPLOAD_DIR = "C:\\Users\\abhishekgalfade\\Downloads\\file";
 
 	@Override
-	public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-
+	public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException{
+		String uriString = null;
 		try {
 
 			File directory = new File(UPLOAD_DIR);
@@ -36,13 +36,16 @@ public class FileServImpl implements FileServi {
 
 			Files.write(filePath, file.getBytes(), StandardOpenOption.CREATE);
 
-			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/student/download/")
+			 uriString = ServletUriComponentsBuilder.fromCurrentContextPath().path("/student/download/")
 					.path(fileName).toUriString();
 
-			return ("File uploaded successfully. Download URL: " + fileDownloadUri);
-		} catch (IOException ex) {
-			return ("Could not upload the file: " + ex.getMessage());
+//			return ("File uploaded successfully. Download URL: " + fileDownloadUri);
+		} catch (Exception ex) {
+			throw new IOException("File Fields is Empty ");
+//			return new throw NullPointerException("");
+//			return ("Could not upload the file: ");
 		}
+		return uriString;
 
 	}
 

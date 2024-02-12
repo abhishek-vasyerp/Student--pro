@@ -8,7 +8,8 @@ import lombok.Data;
 public class ApiResponse {
 
 	private int status;
+	private String message;
 	
-	private Object message;
+	private Object data;
 
 }
